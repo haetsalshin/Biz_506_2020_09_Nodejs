@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var homeRouter = require("./routes/home"); //routes/home.js를 사용하겠다
 // 쌤) nodejs 서버 생성자
 var app = express();
 
@@ -43,6 +44,9 @@ app.use('/', indexRouter);
 // userRouter에게 제어권을 넘겨라
 app.use('/users', usersRouter);
 
+// 쌤) localhost:3000/home/* 라고 요청을 하면
+// homeRouter에게 제어권을 넘겨라
+app.use("/home",homeRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
