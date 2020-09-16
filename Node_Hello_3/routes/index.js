@@ -12,4 +12,13 @@ router.get("/", function (req, res, next) {
   });
 });
 
+router.post("/", function (req, res) {
+  name = req.body.name;
+  res.render("index", {
+    title: name + "님 반갑습니다",
+    date: moment(new Date()).format("YYYY-MM-DD"),
+    time: moment(new Date()).format("HH:mm:ss"),
+  });
+});
+
 module.exports = router;
