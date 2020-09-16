@@ -2,12 +2,14 @@ extends layout
 
 block content
     section.container
+        //- ,action="bbs/write"가 생략된 형태이다
+        //- name뒤에는 우리가 만든VO와 같은 이름으로 써줘야 한다
         form(method="POST")
             .form-group
-                input(name="b_title",placeholder="제목").form-control
+                input(name="b_title",placeholder="제목",value= bbsVO.b_title).form-control
             .form-group
-                input(name="b_write",placeholder="작성자").form-control
+                input(name="b_write",placeholder="작성자",value= bbsVO.b_write).form-control
             .form-group
-                input(name="b_text",placeholder="내용").form-control
+                input(name="b_text",placeholder="내용", value= bbsVO.b_text).form-control
             .form-group 
                 button.btn.btn-primary 전송
