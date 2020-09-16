@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  h1 반갑습니다
-  p 안녕하세요 오늘은 2020-09-16 입니다
+  h1 #{title}
+  p 안녕하세요 오늘은 #{ date } 입니다
+  p 현재시각 : #{ time }
   form
     input(type="text")
     button 전송
