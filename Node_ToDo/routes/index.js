@@ -39,11 +39,48 @@ router.post("/", function (req, res) {
   req.body.to_date = to_date;
   req.body.to_time = to_time;
 
+  // ... : 전개연산자, spread op
+  // req.body에 저장된 json데이터를
+  //    {todo:"데이터", to_date:"날짜","to_time":"시간"}
+  // 이 데이터를 통째로 구조까지 똑같이 todo_data로 복제하라
+  let todo_data = { ...req.body };
+
+  console.log(todo_data);
+
   // 받은 값을 다시 server로 보내주기
   // res.send(todo);
 
   // json 형태로 client에게 보여주기
-  res.json(req.body);
+  //res.json(req.body);
+  // 받아온 데이터를(req.body)를 todo_data로 바꿔서
+  // index로 보내라
+
+  // JSON.strinify(jsonObject) : jsonObject(JSON객체) 데이터를
+  //    네트워크를통해서 전송하기 위하여 문자열로 변환시키기
+  //    string
+  res.render("index", { todo_data: JSON.stringify(todo_data) });
+});
+// get("/insert") : 입력을 받기 위해서
+// 사용자(Client)에게 입력 form을 보여주는 용도의 URL
+router.get("/insert", function (req, res) {
+  res.render("write");
+});
+
+// post("/insert") : form에서 입력받은 내용을 서버로 전송했을 때
+//    데이터를 수신하여 처리할 용도의 URL
+// write.pug의 form에 action을 지정하지 않아도 된다.
+router.post("/insert", function (req, res) {
+  // 데이터 저장 하는 등의 코드
+  res.redirect("/");
+});
+
+router.get("/update", function (req, res) {
+  res.render("write");
+});
+
+router.post("/update", function (req, res) {
+  // 데이터를 수정하는 등의 코드
+  res.redirect("/");
 });
 
 module.exports = router;

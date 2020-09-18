@@ -34,6 +34,13 @@ function main_title_click() {
 // 즉 DOM 문서가 모두 화면에 그려진 후 JS 코드가 작동되도록 하기 위한 방법
 // $(function(){})
 document.addEventListener("DOMContentLoaded", function () {
+  const btn_new = document.querySelector("#btn-new");
+  btn_new.addEventListener("click", function () {
+    // todo_data는 string serialize 된 상태이므로
+    // 이 값에서 데이터를 추출하기 위해 닷 json객체로 변환하는 작업
+    alert(JSON.parse(todo_data).todo);
+  });
+
   // id가 todo인 tag를todo라는 변수에 저장라하
   // todo는 id가 todo인 document object가 된다.
   let todo = document.getElementById("todo");
@@ -61,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectAll("tag이름")
         document.querySelectAll(".class값")
   */
+
   document.querySelector("#btn_save").addEventListener("click", function () {
     // 만약 html 문서내에 같은 tag가 1개만 있거나
     // 같은 class가 지정된 tag가 1개만 있을 경우 querySelectAll()을 사용하지 않고
@@ -68,17 +76,33 @@ document.addEventListener("DOMContentLoaded", function () {
     let todo_input = document.querySelector("input");
 
     // 구체적으로 명시해주는 것
+    // input box를 선택하는 좋은 방법
+    // 확실하게 원하는 input box가 select되도록 설정하는 방법
     todo_input = document.querySelector(
-      "section.todo_main form input[name='todo]"
+      "section.todo_main form input[name='todo']"
     );
 
+    // 객체.value : input box일 경우에만 사용할 수 있는 속성
+    //    input box에 사용자가 문자열(뭔가)를 입력하면
+    //    입력한 내용이 value에 담겨 있게 된다.
+    //    객체.value 값을 todo_value라는 변수에 옮겨 담기
     let todo_value = todo_input.value;
+    // if(todo_input.value === "") <실무에서는 이렇게 간단히 쓰지만
+    // 우리는 일단 변수 계속 만들어서 하는 방법을 배우기 위해
     if (todo_value === "") {
       alert("할일은 반드시 입력하세요");
+      // input tag를 모두 읽어서 배열로 처리하는 방법
       document.querySelectorAll("input")[0].focus();
+      // 정확히 필요한 input을 select하여 처리하는 방법
+      document.querySelector("section.todo_main form input[name='todo").focus();
       return false;
     }
+    // 정상적으로 어떤 문자열이라도 입력을 수행했으면
     if (confirm("저장할까요?")) {
+      // 화면에 form이 1개 뿐이기 때문에 Selector를 사용할 수 있다.
+      // 만약 화면에 여러개의 form이 있다면 가급적 form에도 id를 부여하여
+      // select하는 것이 좋다
+      // 이제 데이터가 정상적으로 입력되었으니 서버로 전송하라
       document.querySelector("form").submit();
     }
   });
@@ -105,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // id가 지정되지 않았을 때
   // tag이름으로 찾을 경우는 같은 이름의 tag가 여러개 있을 수 있기 때문에
   // 무조건 배열로 값이 추출된다.
-  // tag 이름으로 getElement르루샣ㅇ한 다음에는 배열요소를 지정하여
+  // tag 이름으로 getElement를 생성한 다음에는 배열요소를 지정하여
   // 어떤 tag를 선택할지 지정해주어야한다.
   /*
   let btn_save = document.getElementsByTagName("button")[0];
